@@ -1,5 +1,5 @@
 def ensureInt4Bytes(input: int):
-    pass
+    return input & 0xffffffff
 
 
 def murmur2(input: bytes):
