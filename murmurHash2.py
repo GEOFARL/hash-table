@@ -14,3 +14,11 @@ def murmur2(input: bytes):
 
     length = len(input)
     hash = seed ^ length
+
+    round = 0
+    while length >= (round * 4) + 4:
+        # Get 32 bit number by adding sequentially 8 bits at a time
+        k = input[(round * 4)]
+        k |= input[(round * 4) + 1] << 8
+        k |= input[(round * 4) + 2] << 16
+        k |= input[(round * 4) + 3] << 24
