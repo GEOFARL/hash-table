@@ -30,3 +30,8 @@ def murmur2(input: bytes):
         k = ensureInt4Bytes(k * m)
         k ^= k >> 4
         k = ensureInt4Bytes(k * m)
+
+        h = ensureInt4Bytes(h * m)
+        h ^= k
+
+        round += 1
