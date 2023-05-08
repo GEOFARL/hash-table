@@ -22,3 +22,11 @@ def murmur2(input: bytes):
         k |= input[(round * 4) + 1] << 8
         k |= input[(round * 4) + 2] << 16
         k |= input[(round * 4) + 3] << 24
+
+        # Guarantee that our value is 100% only 32 bits
+        k = ensureInt4Bytes(k)
+
+        # Manipulating bits of our 32-bit k number
+        k = ensureInt4Bytes(k * m)
+        k ^= k >> 4
+        k = ensureInt4Bytes(k * m)
