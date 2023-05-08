@@ -34,10 +34,12 @@ class HashTable:
         hashval = murmur2(bytes(key, 'ascii'))
         index = hashval % self.size
 
+        count = 0
         node = self.table[index]
         while node:
+            count += 1
             if node.key == key:
-                return node.value
+                return (node.value, count)
             node = node.next
 
-        return None
+        return (None, count)
