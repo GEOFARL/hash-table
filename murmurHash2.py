@@ -28,19 +28,25 @@ def murmur2(input: bytes):
 
         # Manipulating bits of our 32-bit k number
         k = ensureInt4Bytes(k * m)
-        k ^= k >> 4
+        k ^= k >> r
         k = ensureInt4Bytes(k * m)
 
-        h = ensureInt4Bytes(h * m)
-        h ^= k
+        hash = ensureInt4Bytes(hash * m)
+        hash ^= k
 
         round += 1
 
     numOfLeftBits = length - (round * 4)
     if numOfLeftBits == 1:
-        h ^= input[-1]
-        h = ensureInt4Bytes(h * m)
+        hash ^= input[-1]
+        hash = ensureInt4Bytes(hash * m)
     elif numOfLeftBits == 2:
-        h ^= ensureInt4Bytes(input[-1] << 8)
+        hash ^= ensureInt4Bytes(input[-1] << 8)
     elif numOfLeftBits == 3:
-        h ^= ensureInt4Bytes(input[-1] << 16)
+        hash ^= ensureInt4Bytes(input[-1] << 16)
+
+    hash ^= hash >> 13
+    hash = ensureInt4Bytes(hash * m)
+    hash ^= hash >> 15
+
+    return hash
