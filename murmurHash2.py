@@ -35,3 +35,12 @@ def murmur2(input: bytes):
         h ^= k
 
         round += 1
+
+    numOfLeftBits = length - (round * 4)
+    if numOfLeftBits == 1:
+        h ^= input[-1]
+        h = ensureInt4Bytes(h * m)
+    elif numOfLeftBits == 2:
+        h ^= ensureInt4Bytes(input[-1] << 8)
+    elif numOfLeftBits == 3:
+        h ^= ensureInt4Bytes(input[-1] << 16)
