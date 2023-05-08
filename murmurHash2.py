@@ -11,3 +11,6 @@ def murmur2(input: bytes):
     # number of bits to be shifted
     r = 24
     seed = 0
+
+    length = len(input)
+    hash = seed ^ length
